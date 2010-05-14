@@ -151,20 +151,6 @@ test "basic_type_tests" (function()
 end)
 
 test "simple_array_check" (function()
-  --[[
-  \009
-  \007 3+3+1
-       \007 \111\110\101 one
-  \006 \021 \102\105\114\115\116\032\104\101\114\101 first here
-       \007 \116\119\111 two
-  \006 \023 \115\101\099\111\110\100\032\104\101\114\101 second here
-       \011 \116\104\114\101\101 three
-  \006 \021 \116\104\105\114\100\032\104\101\114\101 third here
-  \001
-  \006 \011 \102\105\114\115\116 one
-  \006 \013 \115\101\099\111\110\100 two
-  \006 \011 \116\104\105\114\100 three
-  ]]
   local test_table = {
     one = "first here",
     two = "second here",
@@ -172,6 +158,19 @@ test "simple_array_check" (function()
     "first",
     "second",
     "third"
+  }
+  check_ok(test_table)
+
+  test_table = {
+    one = 1,
+    two = false,
+    three = "third here",
+    four = nil,
+    1,
+    1.2,
+    0,
+    false,
+    "first"
   }
   check_ok(test_table)
 end)
