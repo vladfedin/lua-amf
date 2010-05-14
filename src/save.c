@@ -75,7 +75,7 @@ static int save_table(
 
   /* write serilization here */
   sb_writechar(sb, LUAAMF_ARRAY);
-  encode_int(sb, 2 * key_value_pairs_number + 1);
+  encode_int(sb, 2 * (numeric_index - 1) + 1);
   sb_write(sb, sb_buffer(&associative, &(associative.buf_size)), associative.buf_size);
   sb_writechar(sb, 0x001);
   sb_write(sb, sb_buffer(&numeric, &(numeric.buf_size)), numeric.buf_size);
