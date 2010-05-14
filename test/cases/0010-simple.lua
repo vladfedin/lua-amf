@@ -165,24 +165,15 @@ test "simple_array_check" (function()
   \006 \013 \115\101\099\111\110\100 two
   \006 \011 \116\104\105\114\100 three
   ]]
-  local res, err = luaamf_local.save({
+  local test_table = {
     one = "first here",
     two = "second here",
     three = "third here",
     "first",
     "second",
-    "third"})
-  if err then error(err) else
-    ensure_equals(
-        "array",
-        res,
-        "\009\007\007\111\110\101\006\021\102\105\114\115\116\032\104\101\114"
-     .. "\101\011\116\104\114\101\101\006\021\116\104\105\114\100\032\104\101"
-     .. "\114\101\007\116\119\111\006\023\115\101\099\111\110\100\032\104\101"
-     .. "\114\101\001\006\011\102\105\114\115\116\006\013\115\101\099\111\110"
-     .. "\100\006\011\116\104\105\114\100"
-      )
-  end
+    "third"
+  }
+  check_ok(test_table)
 end)
 
 test:run()
