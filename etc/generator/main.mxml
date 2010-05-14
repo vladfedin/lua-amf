@@ -66,12 +66,19 @@
         str = str.concat(add_object(""))
         str = str.concat(add_object("65536"))
         str = str.concat(add_object("A\x00B"))
-        str = str.concat(add_object("Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."))
-        str = str.concat(add_object("Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Et 1234567890 symbols."))
-        str = str.concat(add_object("\x00\x00\x00\x00Embedded Zeros\x00\x00\x00\x00"))
-        str = str.concat(add_object("Final object"))
 
-        //str = str.concat(add_object([1, 2, 3]))
+        str = str.concat(add_object("Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."))
+        str = str.concat(add_object("\x00\x00\x00\x00Embedded Zeros\x00\x00\x00\x00"))
+
+        var SimpleArray:Array = new Array(1, 2, 3)
+        str = str.concat(add_object(SimpleArray))
+        var MyArray:Array = new Array("one", "two", "three", true, 1, 1.5)
+        MyArray["first"] = "string"
+        MyArray["second"] = -50
+        MyArray["third"] = 0
+        MyArray["fourth"] = null
+        str = str.concat(add_object(MyArray))
+
         str = str.concat("}\nreturn test_data\n")
         textArea.text = str
       }
