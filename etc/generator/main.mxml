@@ -72,11 +72,12 @@
 
         var SimpleArray:Array = new Array(1, 2, 3)
         str = str.concat(add_object(SimpleArray))
+
         var MyArray:Array = new Array("one", "two", "three", true, 1, 1.5)
         MyArray["first"] = "string"
         MyArray["second"] = -50
         MyArray["third"] = 0
-        MyArray["fourth"] = null
+        MyArray["fourth"] = false
         str = str.concat(add_object(MyArray))
 
         str = str.concat("}\nreturn test_data\n")
