@@ -51,6 +51,23 @@ static void ls_init(
   ls->unread = len;
 }
 
+int num_size(
+    amf_LoadState * ls
+  )
+{
+  unsigned int value = 0;
+  unsigned int byte_cnt = 0;
+  char byte = ls -> pos[0];
+
+  /* If 0x80 is set, int includes the next byte, up to 4 total bytes */
+  while ((byte & 0x80) && (byte_cnt < 3))
+  {
+      byte = ls -> pos[byte_cnt + 1];
+      byte_cnt++;
+  }
+  return byte_cnt + 1;
+}
+
 int load_int(
     lua_State * L,
     amf_LoadState * ls
@@ -64,6 +81,9 @@ int load_int(
   if (result == LUAAMF_ESUCCESS)
   {
     lua_pushnumber(L, value);
+    int size = num_size(ls);
+    ls -> pos = ls -> pos + size;
+    ls -> unread = ls -> unread - size;
   }
   return result;
 }
@@ -169,7 +189,7 @@ int load_array(
   --ls -> unread;
   ++ls -> pos;
 
-  for (; number > 0; number--)
+  while (ls -> pos[0] != LUAAMF_NULL)
   {
     load_string(L, ls, 0);
     load_value(L, ls, 0);
