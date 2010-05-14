@@ -163,7 +163,6 @@ int load_array(
     result = decode_int(ls -> pos, &curr_value);
     if (result == LUAAMF_ESUCCESS) {
       number = (curr_value - 1) / 2;
-      printf("number = %d\n", number);
     }
   }
 
