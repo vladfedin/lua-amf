@@ -53,11 +53,23 @@ end
 local check_load_ok = function(data)
   local loaded = luaamf_local.load(data)
   print("  Loaded:", loaded, "(type: " .. type(loaded) .. ")")
+  if type(loaded) == "table" then
+    print(escape_string(data))
+    for k, v in pairs(loaded) do
+      print("[" .. k .. "] = " .. tostring(v))
+    end
+  end
   local saved = luaamf_local.save(loaded)
   -- this test wont pass due to integer <--> number <--> double decoding
   -- assert(deepequals(data, saved), "Not equal.")
   local reloaded = luaamf_local.load(saved)
   print("Reloaded:", reloaded, "(type: " .. type(reloaded) .. ")")
+  if type(loaded) == "table" then
+    print(escape_string(data))
+    for k, v in pairs(loaded) do
+      print("[" .. k .. "] = " .. tostring(v))
+    end
+  end
   if loaded == loaded then
     assert(deepequals(loaded, reloaded), "Not equal.")
   else
