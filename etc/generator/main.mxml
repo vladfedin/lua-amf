@@ -80,6 +80,12 @@
         MyArray["fourth"] = false
         str = str.concat(add_object(MyArray))
 
+        var NullArray:Array = new Array(null, "one", 2)
+        NullArray["first"] = null
+        NullArray["second"] = false
+        NullArray["third"] = 0
+        str = str.concat(add_object(NullArray))
+
         str = str.concat("}\nreturn test_data\n")
         textArea.text = str
       }
