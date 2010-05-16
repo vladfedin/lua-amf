@@ -55,7 +55,6 @@ int num_size(
     amf_LoadState * ls
   )
 {
-  unsigned int value = 0;
   unsigned int byte_cnt = 0;
   char byte = ls -> pos[0];
 
@@ -192,20 +191,35 @@ int load_array(
   while (ls -> pos[0] != LUAAMF_NULL)
   {
     load_string(L, ls, 0);
-    load_value(L, ls, 0);
-    lua_settable(L, -3);
+    if (ls -> pos[0] != LUAAMF_NULL)
+    {
+      load_value(L, ls, 0);
+      lua_settable(L, -3);
+    }
+    else
+    {
+      ls_readbyte(ls);
+      lua_settop(L, lua_gettop(L) - 1);
+    }
   }
   if (ls_readbyte(ls) != LUAAMF_NULL)
     return LUAAMF_EBADSIZE;
 
   while (ls -> unread != 0)
   {
-    index++;
-    lua_pushinteger(L, index);
-    load_value(L, ls, 0);
-    lua_settable(L, -3);
+    if (ls -> pos[0] != LUAAMF_NULL)
+    {
+      index++;
+      if(index > number) return LUAAMF_EBADSIZE;
+      lua_pushinteger(L, index);
+      load_value(L, ls, 0);
+      lua_settable(L, -3);
+    }
+    else // if we got /001 (null value) - just skip it
+    {
+      ls_readbyte(ls);
+    }
   }
-
   result = LUAAMF_ESUCCESS;
   return result;
 }
